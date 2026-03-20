@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <title>精準點擊</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 0;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+            /* Prevent scrollbars when target moves */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 10px 0;
+            color: #ffeb3b;
+            user-select: none;
+        }
+
+        .info-bar {
+            display: flex;
+            gap: 30px;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            user-select: none;
+        }
+
+        #game-area {
+            position: relative;
+            width: 90%;
+            height: 80%;
+            border: 2px solid #555;
+            background: #111;
+            border-radius: 10px;
+            cursor: crosshair;
+        }
+
+        .target {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #ffeb3b 30%, #f57f17 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 15px #ffeb3b;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .target:active {
+            transform: scale(0.9);
+        }
+
+        #start-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px 40px;
+            font-size: 24px;
+            background: #2979ff;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        #start-btn:hover {
+            background: #1565c0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>精準點擊</h1>
+    <div class="info-bar">
+        <span id="score-display">分數: 0</span>
+        <span id="time-display">時間: 30s</span>
+    </div>
+
+    <div id="game-area">
+        <button id="start-btn" onclick="startGame()">開始遊戲</button>
+    </div>
+
+    <script>
+        let score = 0;
+        let timeLeft = 30;
+        let gameInterval;
+        let targetElement = null;
+        let gameArea = document.getElementById('game-area');
+
+        function startGame() {
+            document.getElementById('start-btn').style.display = 'none';
+            score = 0;
+            timeLeft = 30;
+            updateDisplay();
+            spawnTarget();
+
+            gameInterval = setInterval(() => {
+                timeLeft--;
+                updateDisplay();
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+        }
+
+        function spawnTarget() {
+            // Remove existing target
+            if (targetElement) targetElement.remove();
+
+            // Create new target
+            targetElement = document.createElement('div');
+            targetElement.className = 'target';
+
+            // Random position
+            // Subtract target size (50px) to stay in bounds
+            let maxX = gameArea.clientWidth - 60;
+            let maxY = gameArea.clientHeight - 60;
+
+            let x = Math.floor(Math.random() * maxX);
+            let y = Math.floor(Math.random() * maxY);
+
+            targetElement.style.left = x + 'px';
+            targetElement.style.top = y + 'px';
+
+            targetElement.onmousedown = hitTarget; // Use mousedown for faster response
+
+            gameArea.appendChild(targetElement);
+        }
+
+        function hitTarget() {
+            score += 10;
+            updateDisplay();
+            // Play sound? (Optional)
+            spawnTarget();
+        }
+
+        function updateDisplay() {
+            document.getElementById('score-display').textContent = `分數: ${score}`;
+            document.getElementById('time-display').textContent = `時間: ${timeLeft}s`;
+        }
+
+        function endGame() {
+            clearInterval(gameInterval);
+            if (targetElement) targetElement.remove();
+
+            alert(`時間到！你的最終得分: ${score}`);
+
+            if (window.opener && !window.opener.closed) {
+                window.opener.receiveGameResult({
+                    score: score,
+                    status: 'Aim Test Completed'
+                });
+                window.close();
+            } else {
+                document.getElementById('start-btn').style.display = 'block';
+                document.getElementById('start-btn').textContent = '再玩一次';
+            }
+        }
+    </script>
+</body>
+
+</html>
