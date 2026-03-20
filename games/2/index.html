@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <title>記憶大考驗</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: #1a1a2e;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #d500f9;
+        }
+
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px auto;
+        }
+
+        .card {
+            width: 80px;
+            height: 120px;
+            background-color: transparent;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card.matched .card-inner {
+            visibility: hidden;
+            transition: visibility 0s 0.3s;
+            /* Wait for flip */
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #d500f9, #651fff);
+            color: white;
+        }
+
+        .card-back {
+            background-color: #fff;
+            color: #333;
+            transform: rotateY(180deg);
+            border: 2px solid #d500f9;
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>記憶大考驗</h1>
+    <p>翻開卡牌，配對相同的符號</p>
+
+    <div id="game-board"></div>
+    <div class="controls" id="status">配對數: 0 / 8</div>
+
+    <script>
+        const icons = ['🍎', '🍌', '🍇', '🍉', '🚗', '🚀', '⭐', '🐶'];
+        // Double them up
+        let cards = [...icons, ...icons];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let isLocked = false;
+
+        function initGame() {
+            const board = document.getElementById('game-board');
+            // Shuffle
+            cards.sort(() => Math.random() - 0.5);
+
+            cards.forEach((icon, index) => {
+                let card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-front"><i class="fas fa-question"></i>?</div>
+                        <div class="card-back">${icon}</div>
+                    </div>
+                `;
+                card.onclick = () => flipCard(card, icon);
+                board.appendChild(card);
+            });
+        }
+
+        function flipCard(card, icon) {
+            if (isLocked || card.classList.contains('flipped') || flippedCards.length === 2) return;
+
+            card.classList.add('flipped');
+            flippedCards.push({ element: card, icon: icon });
+
+            if (flippedCards.length === 2) {
+                checkForMatch();
+            }
+        }
+
+        function checkForMatch() {
+            isLocked = true;
+            let card1 = flippedCards[0];
+            let card2 = flippedCards[1];
+
+            if (card1.icon === card2.icon) {
+                // Match
+                matchedPairs++;
+                document.getElementById('status').textContent = `配對數: ${matchedPairs} / 8`;
+                flippedCards = [];
+                isLocked = false;
+
+                // Keep them flipped or hide them? 
+                // Usually matching games keep them visible.
+                // Or we can add a 'matched' class if we want them to disappear.
+                // card1.element.classList.add('matched');
+                // card2.element.classList.add('matched');
+
+                if (matchedPairs === icons.length) {
+                    setTimeout(endGame, 500);
+                }
+            } else {
+                // No Match
+                setTimeout(() => {
+                    card1.element.classList.remove('flipped');
+                    card2.element.classList.remove('flipped');
+                    flippedCards = [];
+                    isLocked = false;
+                }, 1000);
+            }
+        }
+
+        function endGame() {
+            if (window.opener && !window.opener.closed) {
+                window.opener.receiveGameResult({
+                    score: 100,
+                    status: 'All Matched!'
+                });
+                window.close();
+            } else {
+                alert("遊戲完成！");
+                window.close();
+            }
+        }
+
+        initGame();
+    </script>
+</body>
+
+</html>
