@@ -1,0 +1,126 @@
+/* --- 1. 基礎與全域設定 --- */
+* {
+    box-sizing: border-box; /* 讓 padding 和 border 不會撐大元素尺寸，這是網頁排版最佳實踐 */
+}
+
+body {
+    background-color: gainsboro;
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* 加上基本的無襯線字體，看起來更現代 */
+    
+    /* [新增] 讓 body 變成彈性容器，且最小高度為螢幕高度，用來實作 Sticky Footer */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- 2. 頁首區塊 (Header) --- */
+#header {
+    background-color: #FF6B35;
+    border: 1px solid black; /* 修正 0.5px，部分瀏覽器對小於 1px 的邊框支援不佳 */
+    padding: 10px; 
+    margin: 12px;
+    border-radius: 15px;
+}
+
+#user-nav {
+    display: flex;
+    justify-content: flex-end; /* 修正 end 為標準語法 flex-end */
+}
+
+#link-nav {
+    margin: 10px 0 10px 3%; /* 使用簡寫 (上 右 下 左) 讓程式碼更乾淨 */
+}
+
+/* 導覽列連結按鈕化 */
+#header a {
+    background-color: #EFEFD0;
+    color: #333; /* 明確指定文字顏色 */
+    text-decoration: none; /* 移除預設的超連結底線 */
+    padding: 6px 12px;
+    margin: 3px;
+    border: 1.5px solid black;
+    border-radius: 8px;
+    transition: background-color 0.3s ease; /* 加上過場動畫，提升質感 */
+}
+
+#header a:hover {
+    background-color: #ffffff; /* 滑鼠懸停時的亮色回饋 */
+}
+
+/* --- 3. 主要內容區塊 (Main Content) --- */
+.main-content {
+    /* 優化排版：改用 max-width 與 margin: auto 自動置中，取代寫死的 margin-left: 22% */
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto; 
+    border-radius: 10px;
+    
+    /* [修改] 移除了寫死的 min-height: 550px，改用 flex-grow 讓內容區塊自動填滿剩餘空間 */
+    flex-grow: 1; 
+}
+
+#home-main {
+    text-align: center;
+    padding: 0 5%;
+}
+
+#mainimg {
+    margin-top: 3%;
+    border-radius: 13px;
+    max-width: 100%; /* 確保圖片在較小螢幕時不會破版 */
+    height: auto;
+}
+
+#title {
+    background-color: aliceblue;
+    border: 1px solid black;
+    border-radius: 8px;
+    box-shadow: 4px 3px 2px orange;
+    padding: 10px; /* 加上 padding 讓文字不要緊貼邊框 */
+    margin-top: 20px;
+}
+
+/* --- 4. 關於我們區塊 (About) --- */
+/* 將 3 個重複的 ID 樣式合併，遵守 DRY (Don't Repeat Yourself) 原則 */
+#about1-text,
+#about2-text,
+#about3-text {
+    background-color: azure;
+    margin: 15px 0 30px 0;
+    padding: 15px; /* 增加內距，讓文章閱讀起來更舒適 */
+    border-radius: 10px;
+}
+
+/* 針對 about.php 的圖片加上防呆設定 */
+#about-main .image {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+/* --- 5. 頁尾區塊 (Footer) --- */
+#footer {
+    background-color: #043f6b;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    padding: 15px 0; /* 給 Footer 一點上下的呼吸空間 */
+    
+    /* [新增] 確保在 Flex 架構下 Footer 維持滿版 */
+    width: 100%; 
+}
+
+/* --- 6. 其他設定 --- */
+#game-list {
+    background-color: antiquewhite;
+}
+
+#t-td:hover, 
+#id-td:hover {
+    background-color: #ebeb9e;
+}
+
+#d-td:hover {
+    background-color: #FF6B35;
+}

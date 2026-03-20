@@ -1,0 +1,140 @@
+/* --- 1. 基礎與全域設定 --- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f0f0f0; /* 稍微淡化灰色，增加質感 */
+    margin: 0;
+    font-family: "Segoe UI", "Microsoft JhengHei", Helvetica, Arial, sans-serif; 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- 2. 頁首區塊 (Header) --- */
+#header {
+    background-color: #FF6B35;
+    padding: 15px 20px; 
+    margin: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* 增加輕微陰影 */
+}
+
+#user-nav {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+#link-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; /* 使用 gap 代替 margin，排版更精準 */
+}
+
+#header a {
+    background-color: #EFEFD0;
+    color: #333;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#header a:hover {
+    background-color: #ffffff;
+    transform: translateY(-2px); /* 懸浮微動效 */
+}
+
+/* --- 3. 主要內容區塊 (Main Content) --- */
+.main-content {
+    width: 90%;
+    max-width: 900px;
+    margin: 20px auto; 
+    flex-grow: 1;
+}
+
+/* 分數資訊區塊優化 */
+.main-content > div {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    line-height: 1.8;
+}
+
+#Gamescore, #Gamestatus, #user {
+    font-weight: bold;
+    color: #FF6B35;
+    margin-left: 5px;
+}
+
+/* --- 4. 遊戲列表表格 (Game List Table) --- */
+#game-list {
+    width: 100%;
+    border-collapse: collapse; /* 移除雙邊框 */
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden; /* 確保圓角生效 */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: none !important; /* 蓋掉 HTML 的 border屬性 */
+}
+
+#game-list th, #game-list td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+#game-list tr:first-child {
+    background-color: #4A4A4A;
+    color: white;
+}
+
+#game-list tr:last-child td {
+    border-bottom: none;
+}
+
+/* 表格內按鈕優化 */
+#game-list button {
+    background-color: #FF6B35;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#game-list button:hover {
+    background-color: #e55a2b;
+}
+
+/* 互動效果 */
+#game-list tr:hover {
+    background-color: #fffdf5;
+    color: #333;
+}
+
+/* --- 5. 頁尾區塊 (Footer) --- */
+#footer {
+    background-color: #043f6b;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    width: 100%; 
+    margin-top: 30px;
+}
+
+/* --- 6. 響應式優化 --- */
+@media (max-width: 600px) {
+    #header { margin: 5px; }
+    #link-nav { justify-content: center; }
+    .main-content { width: 95%; }
+}

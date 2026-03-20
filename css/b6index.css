@@ -1,0 +1,318 @@
+/* =========================================
+   1. 基礎與全域設定 (Base Styles)
+========================================= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f6f8; /* 柔和的淺灰藍色底色 */
+    margin: 0;
+    font-family: "Segoe UI", "Microsoft JhengHei", Helvetica, Arial, sans-serif; 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* =========================================
+   2. 頁首區塊 (Header)
+========================================= */
+#header {
+    background-color: #FF6B35; /* 品牌橘色 */
+    padding: 15px 25px; 
+    margin: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(255, 107, 53, 0.2); 
+}
+
+#user-nav {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+    gap: 10px; /* 👉 這裡將登入與註冊按鈕隔開 */
+}
+
+#link-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* 使用 gap 控制選單按鈕間距 */
+}
+
+#header a {
+    background-color: #EFEFD0;
+    color: #333;
+    text-decoration: none;
+    padding: 8px 18px;
+    border: 1px solid transparent; 
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+#header a:hover {
+    background-color: #ffffff;
+    border-color: #FF6B35;
+    color: #FF6B35;
+    transform: translateY(-2px); 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* =========================================
+   3. 主要內容區塊 (利用屬性選擇器選取帶有空格的 ID)
+========================================= */
+main[id="main-content index-main"] {
+    width: 90%;
+    max-width: 900px;
+    margin: 20px auto; 
+    flex-grow: 1; 
+}
+
+/* =========================================
+   4. 表單區塊優化 (Card Layout)
+========================================= */
+main[id="main-content index-main"] form {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
+    margin-bottom: 40px;
+}
+
+/* 表單內的每一行 (div) */
+main[id="main-content index-main"] form > div {
+    margin-bottom: 20px;
+}
+
+/* 標籤 */
+main[id="main-content index-main"] form label {
+    display: block; 
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 15px;
+}
+
+/* 統一輸入框與下拉選單樣式 (👉 已加入 type="name" 支援修復姓名欄位) */
+main[id="main-content index-main"] form input[type="text"],
+main[id="main-content index-main"] form input[type="name"],
+main[id="main-content index-main"] form input[type="email"],
+main[id="main-content index-main"] form input[type="number"],
+main[id="main-content index-main"] form select,
+main[id="main-content index-main"] form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background-color: #fafafa;
+}
+
+/* 輸入時的 Highlight 效果 */
+main[id="main-content index-main"] form input:focus, 
+main[id="main-content index-main"] form select:focus, 
+main[id="main-content index-main"] form textarea:focus {
+    outline: none;
+    border-color: #FF6B35;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+}
+
+main[id="main-content index-main"] form textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.5;
+}
+
+/* 送出與重設按鈕 */
+#form-submit, #form-reset {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+#form-submit {
+    background-color: #FF6B35;
+    color: white;
+}
+
+#form-submit:hover {
+    background-color: #e55a2b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 107, 53, 0.3);
+}
+
+#form-reset {
+    background-color: #e4e6eb;
+    color: #4b4f56;
+}
+
+#form-reset:hover {
+    background-color: #d8dadf;
+}
+
+/* =========================================
+   5. 資料表格優化 (Table Styling)
+========================================= */
+main[id="main-content index-main"] table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+main[id="main-content index-main"] table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* 針對第一列標題列 */
+main[id="main-content index-main"] table tr:first-child {
+    background-color: #043f6b;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* 斑馬紋 (排除第一列標題) */
+main[id="main-content index-main"] table tr:nth-child(even):not(:first-child) {
+    background-color: #fcfcfc;
+}
+
+/* 懸停效果 (排除第一列標題) */
+main[id="main-content index-main"] table tr:not(:first-child):hover {
+    background-color: #fff8f5; 
+}
+
+/* 刪除按鈕 (A 連結) */
+main[id="main-content index-main"] table td a {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+main[id="main-content index-main"] table td a:hover {
+    background-color: #c82333;
+}
+
+/* =========================================
+   6. 頁尾區塊 (Footer)
+========================================= */
+#footer {
+    background-color: #043f6b;
+    color: white;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    padding: 25px 0;
+    width: 100%; 
+    margin-top: auto; 
+    letter-spacing: 0.5px;
+}
+
+/* =========================================
+   7. 網站地圖 (Sitemap) 專屬設定
+========================================= */
+/* 讓 sitemap 的主要內容區塊與首頁保持一樣的寬度與置中 */
+main#main-content {
+    width: 90%;
+    max-width: 900px;
+    margin: 20px auto; 
+    flex-grow: 1; 
+}
+
+/* 將網站地圖裡面的三大區塊 (div) 變成白色卡片樣式 */
+main#main-content > div {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
+    margin-bottom: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px; /* 控制按鈕之間的間距 */
+}
+
+/* 針對網站地圖的分類標題 */
+#gamelist, #member-system {
+    width: 100%; /* 讓標題獨佔一行 */
+    font-size: 18px;
+    font-weight: bold;
+    color: #043f6b; /* 品牌深藍色 */
+    margin: 0 0 10px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #FF6B35; /* 品牌橘色底線 */
+}
+
+/* 統一設定所有網站地圖的連結按鈕 */
+a[id^="sitemap-"] {
+    display: inline-block;
+    background-color: #f4f6f8;
+    color: #333;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+/* 連結按鈕的懸停 (Hover) 效果 */
+a[id^="sitemap-"]:hover {
+    background-color: #FF6B35;
+    color: #ffffff;
+    border-color: #FF6B35;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 107, 53, 0.2);
+}
+
+/* =========================================
+   8. 響應式優化 (Mobile RWD) - 統一處理所有頁面
+========================================= */
+@media (max-width: 768px) {
+    /* 統一首頁與網站地圖在手機版的寬度 */
+    main[id="main-content index-main"], 
+    main#main-content { 
+        width: 95%; 
+    }
+    
+    #header { 
+        margin: 10px; 
+        padding: 15px;
+    }
+    
+    #link-nav { justify-content: center; }
+    #user-nav { justify-content: center; }
+    
+    /* 首頁：手機版表格水平滾動 */
+    main[id="main-content index-main"] table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    /* 網站地圖：手機版時按鈕佔滿全寬，方便點擊 */
+    a[id^="sitemap-"] {
+        width: 100%; 
+        text-align: center;
+    }
+}
