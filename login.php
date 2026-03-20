@@ -36,16 +36,10 @@
     </main>
     <?php include_once("./include/footer.php");?>
     <script>
-        let verify = document.getElementById("verify");
-        // let image = document.getElementById("img");
-        let image = document.getElementById("img");
-        let ans = document.getElementById("ans");
-        let random = Math.random()*10000;
-        let v_random = Math.floor(random);
-        console.log(v_random);
-        ans.value = v_random;
-        image.src = "gd_image.php?verify_number=" + v_random;
-        verify.appendChild(image);
+        let v = Math.random() * 10000 | 0;
+        ans.value = v;
+        img.src = `gd_image.php?verify_number=${v}`;
+        verify.appendChild(img);
     </script>
 </body>
 </html>
