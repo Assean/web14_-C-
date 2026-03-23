@@ -8,6 +8,7 @@ if($_POST["ver_num"] != $_POST["ans"]){
 }else{
 include_once("pdo.php");
 $check_user="SELECT count(*) FROM `users` WHERE `username` = '{$_POST['username']}'";
+    // 直接加上AND密碼即可做到帳號密碼驗證
 $check_user_num=$pdo->query($check_user)->fetchColumn();
 if($check_user_num>0){
     session_start();
