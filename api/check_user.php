@@ -1,5 +1,6 @@
 <?php
 if($_POST["ver_num"] != $_POST["ans"]){
+    // $_POST["ver_num"]、$_POST["ans"] --> 前端login.php，欄位ver_num及ans傳送(name)
     echo "<script>";
     echo "alert('你輸入的驗證碼錯誤,請重新輸入');";
     echo "location.href='../login.php'";
