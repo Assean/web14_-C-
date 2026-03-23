@@ -37,9 +37,12 @@
     <?php include_once("./include/footer.php");?>
     <script>
         let v = Math.random() * 10000 | 0;
-        ans.value = v;
-        img.src = `gd_image.php?verify_number=${v}`;
-        verify.appendChild(img);
+        // ans.value = v;
+        // img.src = `gd_image.php?verify_number=${v}`;
+        // verify.appendChild(img);
+        // 以上為JS語法，更簡短寫法請見下方code(記得引入jquery[3.7.1])
+        $("#ans").val(v);
+        $("#ver_num").attr('src',`gd.php?ver_num=${v}`)
     </script>
 </body>
 </html>
